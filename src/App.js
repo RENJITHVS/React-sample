@@ -26,8 +26,11 @@ function App() {
   //     return (w/ (h * h)).toFixed(2);
   // };
 
-  // in arrow function
+  // arrow function to calculate BMI
   const calBMI = (w, h) => (w/ (h*h)).toFixed(2);
+
+   // function to get weight from bmi and hight
+   const calWeight = (b, h) => (b * h * h).toFixed(2);
 
   const weightType = (bmi) => {
     if (bmi< 18.5){
@@ -50,7 +53,6 @@ function App() {
     }
   }
 
-  const callWeight = (b,h)
 
   const onFormSub = (w, h) => {
     // console.log(w, h)
@@ -58,6 +60,16 @@ function App() {
     // let t = 
     setBmi(b);
     setbmiType(weightType(b))
+
+    const range = {
+      underWeight: { low: calWeight(18.5, h) },
+      normal: { low: calWeight(18.5, h), high: calWeight(24.9, h) },
+      overWeight: { low: calWeight(25, h), high: calWeight(29.9, h) },
+      obesityOne: { low: calWeight(30, h), high: calWeight(34.9, h) },
+      obesityTwo: { low: calWeight(35, h), high: calWeight(39.9, h) },
+      obesityThree: { high: calWeight(40, h) },
+    };
+    setBmiRange(range)
   }
 
   return (
@@ -69,7 +81,7 @@ function App() {
     <div className='row mt-5'>
     <BmiScore bmiNo={bmi} bmiName = {bmiType}/>
     </div>
-    <Bmilist/>
+    <Bmilist range={bmiRange} bmi = {bmi}/>
     
     </div>
   );
